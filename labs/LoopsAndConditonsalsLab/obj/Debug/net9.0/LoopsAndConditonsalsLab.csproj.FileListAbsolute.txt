@@ -1,0 +1,15 @@
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\bin\Debug\net9.0\LoopsAndConditonsalsLab.exe
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\bin\Debug\net9.0\LoopsAndConditonsalsLab.deps.json
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\bin\Debug\net9.0\LoopsAndConditonsalsLab.runtimeconfig.json
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\bin\Debug\net9.0\LoopsAndConditonsalsLab.dll
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\bin\Debug\net9.0\LoopsAndConditonsalsLab.pdb
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.AssemblyInfoInputs.cache
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.AssemblyInfo.cs
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.csproj.CoreCompileInputs.cache
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.sourcelink.json
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.dll
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\refint\LoopsAndConditonsalsLab.dll
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.pdb
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\LoopsAndConditonsalsLab.genruntimeconfig.cache
+C:\Users\Brook\Documents\dev260_fall_2025\labs\LoopsAndConditonsalsLab\obj\Debug\net9.0\ref\LoopsAndConditonsalsLab.dll
