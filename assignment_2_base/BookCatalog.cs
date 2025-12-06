@@ -245,7 +245,9 @@ namespace Week3ArraysSorting
             // TODO: Call your chosen sorting algorithm
             // Example: QuickSort(normalizedTitles, originalTitles, 0, bookCount - 1);
             // Example: MergeSort(normalizedTitles, originalTitles, 0, bookCount - 1);
+            MergeSort(normalizedTitles, originalTitles, 0, bookCount - 1);
         }
+
         
         /// <summary>
         /// Build multi-dimensional index over sorted data
@@ -270,6 +272,15 @@ namespace Week3ArraysSorting
             // {
             //     // Get first two letters and update index ranges
             // }
+
+            int[,] startIdx = new int[26, 26];
+            int[,] endIdx = new int[26, 26];
+            for (int i = 0; i < 26; i++){
+                for (int j = 0; j < 26; j++){
+                    startIdx[i, j] = -1;
+                    endIdx[i, j] = -1;
+                }
+            }
         }
         
         /// <summary>
@@ -296,6 +307,26 @@ namespace Week3ArraysSorting
             // TODO: If range is empty, find suggestions
             // TODO: If range exists, binary search for exact match
             // TODO: Display results using original titles
+            int firstLetterIndex = GetLetterIndex(normalizedQuery.Length > 0 ? normalizedQuery[0] : 'A');
+            int secondLetterIndex = GetLetterIndex(normalizedQuery.Length > 1 ? normalizedQuery[1] : 'A');
+            int begin = startIndex[firstLetterIndex, secondLetterIndex];
+            int end = endIndex[firstLetterIndex, secondLetterIndex];
+            if (begin == -1 || end == -1){
+                Console.WriteLine("No exact matches found.");
+                FindSuggestions(normalizedQuery, 5);
+            }
+            else{
+                int foundIndex = BinarySearchInRange(normalizedQuery, begin, end);
+                if (foundIndex == -1){
+                    Console.WriteLine("Sorry, there are no exact matches found.");
+                    FindSuggestions(normalizedQuery, 5);
+                }
+                else{
+                    Console.WriteLine("Good news! We have an exact match found:");
+                    Console.WriteLine($"- {originalTitles[foundIndex]}");
+                }
+            }
+
         }
         
         /// <summary>
@@ -305,12 +336,12 @@ namespace Week3ArraysSorting
         private void DisplayLookupInstructions()
         {
             Console.WriteLine("BOOK LOOKUP INSTRUCTIONS:");
-            Console.WriteLine("- Enter any book title to search");
-            Console.WriteLine("- Exact matches will be shown if found");
+            Console.WriteLine("- Please enter any book title you want to search");
+            Console.WriteLine("- The exact matches will be shown if the book title is found");
             Console.WriteLine("- Suggestions provided for partial/no matches");
-            Console.WriteLine("- Type 'exit' to return to main menu");
+            Console.WriteLine("- Type 'exit' if you want to return to main menu");
             Console.WriteLine();
-            Console.WriteLine($"Catalog contains {bookCount} books, sorted and indexed for fast lookup.");
+            Console.WriteLine($"This catalog contains {bookCount} books, sorted and indexed for fast lookup.");
         }
         
         // TODO: Add your sorting algorithm methods
@@ -345,5 +376,135 @@ namespace Week3ArraysSorting
         // - FindSuggestions(string query, int maxSuggestions)
         // - SwapElements(int index1, int index2) - For QuickSort
         // - MergeArrays(...) - For MergeSort
+        private int GetLetterIndex(char letter)
+        {
+            if (letter >= 'A' && letter <= 'Z')
+            {
+                return letter - 'A';
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        private int BinarySearchInRange(string query, int start, int end)
+        {
+            // Validate range
+            if (bookCount == 0 || start < 0 || end <= 0 || start >= bookCount)
+            {
+                return -1;
+            }
+
+            // Clamp end to bookCount (treat end as exclusive upper bound)
+            int lo = start;
+            int hi = Math.Min(end, bookCount) - 1; // inclusive
+
+            while (lo <= hi)
+            {
+                int mid = lo + (hi - lo) / 2;
+                string midVal = normalizedTitles[mid];
+
+                int cmp = string.Compare(query, midVal, StringComparison.OrdinalIgnoreCase);
+                if (cmp == 0)
+                {
+                    return mid;
+                }
+                else if (cmp < 0)
+                {
+                    hi = mid - 1;
+                }
+                else
+                {
+                    lo = mid + 1;
+                }
+            }
+
+            return -1; // not found
+        }
+        private void SwapElements(int index1, int index2)
+        {
+            string tempNorm = normalizedTitles[index1];
+            normalizedTitles[index1] = normalizedTitles[index2];
+            normalizedTitles[index2] = tempNorm;
+            string tempOrig = originalTitles[index1];
+            originalTitles[index1] = originalTitles[index2];
+            originalTitles[index2] = tempOrig;
+        }
+        private void MergeArrays(string[] normalizedArray, string[] originalArray, int left, int mid, int right)
+        {
+            int n1 = mid - left + 1;
+            int n2  = right - mid;
+
+            string[] leftNorm = new string[n1];
+            string[] rightNorm = new string[n2];
+            string[] leftOrig = new string[n1];
+            string[] rightOrig = new string[n2];
+            for (int i = 0; i < n1; i++){
+                leftNorm[i] = normalizedArray[left + i];
+                leftOrig[i] = originalArray[left + i];
+            }
+            for (int j = 0; j < n2; j++)
+            {
+                rightNorm[j] = normalizedArray[mid + 1 + j];
+                rightOrig[j] = originalArray[mid + 1 + j];
+            }
+            int ii = 0, jj = 0;
+            int k = left;
+            while (ii < n1 && jj < n2)
+            {
+                if (string.Compare(leftNorm[ii], rightNorm[jj], StringComparison.OrdinalIgnoreCase) <= 0)
+                {
+                    normalizedArray[k] = leftNorm[ii];
+                    originalArray[k] = leftOrig[ii];
+                    ii++;
+                }
+                else
+                {
+                    normalizedArray[k] = rightNorm[jj];
+                    originalArray[k] = rightOrig[jj];
+                    jj++;
+                }
+                k++;
+            }
+            while (ii < n1){
+                normalizedArray[k] = leftNorm[ii];
+                originalArray[k] = leftOrig[ii];
+                ii++;
+                k++;
+            }
+            while (jj < n2){
+                normalizedArray[k] = rightNorm[jj];
+                originalArray[k] = rightOrig[jj];
+                jj++;
+                k++;
+            }
+        }
+        private void MergeSort (string[] normalizedArray, string[] originalArray, int left, int right){
+            if (left < right){
+                int mid = left + (right - left) / 2;
+                MergeSort(normalizedArray, originalArray, left, mid);
+                MergeSort(normalizedArray, originalArray, mid + 1, right);
+                MergeArrays(normalizedArray, originalArray, left, mid, right);
+            }
+        }
+        private void FindSuggestions (string query, int maxSuggestions){
+            Console.WriteLine("Suggestions:");
+            int suggestionsFound = 0;
+            for (int i = 0; i < 26 && suggestionsFound < maxSuggestions; i++)
+            {
+                for (int j = 0; j < 26 && suggestionsFound < maxSuggestions; j++)
+                {
+                    int start = startIndex[i, j];
+                    int end = endIndex[i, j];
+                    if (start != -1 && end != -1)
+                    {
+                        for (int k = start; k < end && suggestionsFound < maxSuggestions; k++){
+                            Console.WriteLine($"- {originalTitles[k]}");
+                            suggestionsFound++;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
