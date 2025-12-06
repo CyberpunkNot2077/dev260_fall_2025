@@ -165,15 +165,25 @@ namespace Week3ArraysSorting
             // - Show current board state
             // - Include row/column labels for easy reference
             
-            Console.WriteLine(" 0 1 2");
-            for (int r = 0; r < 3; r++){
-                Console.Write(r + " ");
-                for (int c = 0; c < 3; c++){
-                    Console.Write(board[r,c]);
-                    if (c < 2) Console.Write("/");
+            // Column headers
+            Console.WriteLine("   0   1   2");
+
+            for (int r = 0; r < 3; r++)
+            {
+                // Row with cell contents
+                Console.Write(r + "  ");
+                for (int c = 0; c < 3; c++)
+                {
+                    char val = board[r, c];
+                    Console.Write(" " + (val == ' ' ? ' ' : val) + " ");
+                    if (c < 2) Console.Write("|");
                 }
                 Console.WriteLine();
+
+                // Separator between rows
+                if (r < 2) Console.WriteLine("  ---+---+---");
             }
+            Console.WriteLine();
         }
         
         /// <summary>
@@ -245,14 +255,68 @@ namespace Week3ArraysSorting
             // - Check for draw (top row full, no winner)
             
             winner = "";
-            // Check rows and columns
-            for(int i = 0; i < 3; i++){
-                if (board[i,0] == currentPlayer && board[i,1] == currentPlayer && board[i, 2] == currentPlayer){
+
+            // Check rows
+            for (int i = 0; i < 3; i++)
+            {
+                if (board[i, 0] == currentPlayer && board[i, 1] == currentPlayer && board[i, 2] == currentPlayer)
+                {
                     winner = currentPlayer.ToString();
                     gameOver = true;
                     Console.WriteLine($"The winner is Player {currentPlayer}!");
                     return;
                 }
+            }
+
+            // Check columns
+            for (int i = 0; i < 3; i++)
+            {
+                if (board[0, i] == currentPlayer && board[1, i] == currentPlayer && board[2, i] == currentPlayer)
+                {
+                    winner = currentPlayer.ToString();
+                    gameOver = true;
+                    Console.WriteLine($"The winner is Player {currentPlayer}!");
+                    return;
+                }
+            }
+
+            // Check diagonals
+            if (board[0, 0] == currentPlayer && board[1, 1] == currentPlayer && board[2, 2] == currentPlayer)
+            {
+                winner = currentPlayer.ToString();
+                gameOver = true;
+                Console.WriteLine($"The winner is Player {currentPlayer}!");
+                return;
+            }
+
+            if (board[0, 2] == currentPlayer && board[1, 1] == currentPlayer && board[2, 0] == currentPlayer)
+            {
+                winner = currentPlayer.ToString();
+                gameOver = true;
+                Console.WriteLine($"The winner is Player {currentPlayer}!");
+                return;
+            }
+
+            // Check for draw (board full and no winner)
+            bool boardFull = true;
+            for (int r = 0; r < 3; r++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    if (board[r, c] == ' ')
+                    {
+                        boardFull = false;
+                        break;
+                    }
+                }
+                if (!boardFull) break;
+            }
+
+            if (boardFull)
+            {
+                gameOver = true;
+                Console.WriteLine("Ladies and Gentlemen, we have a tie!");
+                return;
             }
         }
         
@@ -315,5 +379,82 @@ namespace Week3ArraysSorting
         // - CheckColumn(int col, char player)
         // - CheckDiagonals(char player)
         // - DropToken(int column, char player) // For Connect Four
+
+        /// <summary>
+        /// Returns true if the given row/col is a valid empty cell on the board
+        /// </summary>
+        private bool IsValidMove(int row, int col)
+        {
+            if (row < 0 || row > 2 || col < 0 || col > 2)
+            {
+                return false;
+            }
+
+            if (board[row, col] != ' ')
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns true when there are no empty cells left on the board
+        /// </summary>
+        private bool IsBoardFull()
+        {
+            for (int r = 0; r < 3; r++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    if (board[r, c] == ' ')
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+        private bool CheckRow(int row, char player)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                if (board[row, c] != player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private bool CheckColumn(int col, char player)
+        {
+            for (int r = 0; r < 3; r++)
+            {
+                if (board[r, col] != player){
+                    return false;
+                }
+            }
+            return true;
+        }
+        private bool CheckDiagonals(char player){
+            if (board[0,0] == player && board[1,1] == player && board[2,2] == player){
+                return true;
+            }
+            if (board[0,2] == player && board[1,1] == player && board[2,0] == player){
+                return true;
+            }
+            return false;
+        }
+        //For Connect Four
+        private void DropToken(int column, char player)
+        {
+            for (int r = 2; r >= 0; r--){
+                if (board[r, column] == ' '){
+                    board[r, column] = player;
+                    break;
+                }
+            }
+        }
     }
 }
