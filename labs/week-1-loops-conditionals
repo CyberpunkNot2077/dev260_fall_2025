@@ -1,0 +1,55 @@
+// See https://aka.ms/new-console-template for more information
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        for (int u = 0; u <= 100; u += 2)
+        {
+            int sum = u + u;
+            Console.WriteLine(sum);
+        }
+        int score;
+        static void GetLetterGrade(int score)
+        {
+            if (score =< 100 && score =>90)
+            {
+            Console.WriteLine("You have earned and A! Perfection!");
+
+            }
+            else if(score =< 89 && score => 80)
+            {
+            Console.WriteLine("Impressive work! You got a B!");
+            }
+            else if(score =< 79 && score => 70)
+            {
+            Console.WriteLine("Not too bad. You got a C grade!");
+            }
+            else if(score =< 69 && score => 60)
+            {
+                Console.WrtieLine("Tough break. You got a D.");
+            }
+            else
+            {
+                Console.WriteLine("Oh no! You got an F grade!");
+            }
+        }
+        static void EvenSum()
+
+        List<int> evenNumbers = Enumerable.Range(1,1999).ToList();
+        Random shuffleUp = new Random();
+        evenNumbers = evenNumbers.Orderby(x => shuffleUp.Next()).ToList();
+
+        if({evenNumbers[0]} && {evenNumbers[1]} == 2000)
+        {
+            Console.WriteLine("That is one big number!");
+
+        }
+        else
+        {
+            Console.WriteLine("That number is too small");
+        }
+        
+    }
+}

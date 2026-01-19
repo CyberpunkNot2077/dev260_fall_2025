@@ -1,0 +1,42 @@
+﻿# Ignore build output
+bin/
+obj/
+
+# Visual Studio & Rider
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.idea/
+
+# NuGet
+*.nupkg
+.packages/
+
+# Rider
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Visual Studio Code workspace
+.vscode/
+
+# Dotnet artifacts
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Ignore per-assignment build outputs (explicit)
+assignments/**/bin/
+assignments/**/obj/
+
+# Ignore compiled binaries in repository root
+*.dll
+*.exe
+*.pdb

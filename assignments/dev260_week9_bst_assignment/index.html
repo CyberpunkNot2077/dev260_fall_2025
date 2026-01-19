@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <title>Redundant Registration</title>
+  </head>
+  <body>
+    <form name="mainform" onsubmit="return false">
+    <fieldset name="hello">
+      <legend>Welcome to the Junk Website</legend>
+      <button id="new-user" onclick="welcomeNewUser()">Register</button>
+      <button id="existing-user" onclick="welcomePastUser()">Exist</button>
+    </fieldset>
+    <fieldset name="welcome-aboard">
+      <legend>New User</legend>
+      <label for="username">UserName:</label>
+      <input name="username" id="username" />
+      <label for="passcode">Passcode:</label>
+      <input name="passcode" id="passcode" />
+      <label for="town">City:</label>
+      <input name="town" id="town" />
+      <label for="state">State:</label>
+      <input name="state" id="state" />
+      <button id="welcome-to-my-world" onclick="storeAway()">Sign Up</button>
+    </fieldset>
+    <fieldset name="welcome-back">
+      <legend>Existing User</legend>
+      <label for="username">UserName:</label>
+      <input name="username" id="username" />
+      <label for="passcode">PassCode:</label>
+      <input name="passcode" id="passcode" />
+      <button id="login" onclick="isThisYou()">Log In</button>
+    </fieldset>
+    </form>
+  </body>
+</html>
